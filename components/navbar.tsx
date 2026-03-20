@@ -40,6 +40,14 @@ export function Navbar() {
           >
             学习中心
           </button>
+          <button
+            onClick={() => setView("solve")}
+            className={`text-sm transition-colors ${
+              currentView === "solve" ? "text-nebula-400" : "text-cosmic-200 hover:text-white"
+            }`}
+          >
+            智能解题
+          </button>
 
           {/* XP & Level indicator */}
           <div className="flex items-center gap-3 ml-4 pl-4 border-l border-cosmic-600/30">

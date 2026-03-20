@@ -32,10 +32,10 @@ export function HeroSection() {
             开始学习之旅 🚀
           </button>
           <button
-            onClick={() => setView("dashboard")}
-            className="px-8 py-4 glass rounded-xl text-lg font-medium hover:bg-cosmic-600/50 transition-all"
+            onClick={() => setView("solve")}
+            className="px-8 py-4 glass rounded-xl text-lg font-medium hover:bg-cosmic-600/50 transition-all border border-aurora-500/30 hover:border-aurora-400/50"
           >
-            查看学习地图 🗺️
+            上传题目解答 📸
           </button>
         </div>
 

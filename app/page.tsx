@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { Starfield } from "@/components/starfield";
 import { Navbar } from "@/components/navbar";
 import { HeroSection } from "@/components/hero-section";
 import { SubjectSelector } from "@/components/subject-selector";
 import { Dashboard } from "@/components/dashboard";
 import { ClassroomView } from "@/components/classroom-view";
+import { SolveView } from "@/components/solve-view";
 import { useAppStore } from "@/lib/store";
 
 export default function Home() {
@@ -25,6 +25,7 @@ export default function Home() {
         )}
         {currentView === "dashboard" && <Dashboard />}
         {currentView === "classroom" && <ClassroomView />}
+        {currentView === "solve" && <SolveView />}
       </div>
     </main>
   );

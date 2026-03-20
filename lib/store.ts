@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type View = "home" | "dashboard" | "classroom";
+export type View = "home" | "dashboard" | "classroom" | "solve";
 export type Subject = "math" | "physics";
 export type AgentRole = "teacher" | "assistant" | "classmate";
 
@@ -106,6 +106,17 @@ interface AppState {
   // Classroom
   classroomMode: "lecture" | "discussion" | "practice" | "simulation";
   setClassroomMode: (mode: "lecture" | "discussion" | "practice" | "simulation") => void;
+
+  // Solve (question upload)
+  questionText: string;
+  questionImage: string | null; // base64 data URL
+  setQuestionText: (text: string) => void;
+  setQuestionImage: (image: string | null) => void;
+  solutionMessages: Message[];
+  addSolutionMessage: (message: Message) => void;
+  clearSolution: () => void;
+  isSolving: boolean;
+  setIsSolving: (solving: boolean) => void;
 }
 
 const defaultAchievements: Achievement[] = [
@@ -299,4 +310,16 @@ export const useAppStore = create<AppState>((set, get) => ({
   // Classroom
   classroomMode: "lecture",
   setClassroomMode: (mode) => set({ classroomMode: mode }),
+
+  // Solve (question upload)
+  questionText: "",
+  questionImage: null,
+  setQuestionText: (text) => set({ questionText: text }),
+  setQuestionImage: (image) => set({ questionImage: image }),
+  solutionMessages: [],
+  addSolutionMessage: (message) =>
+    set((state) => ({ solutionMessages: [...state.solutionMessages, message] })),
+  clearSolution: () => set({ solutionMessages: [], questionText: "", questionImage: null }),
+  isSolving: false,
+  setIsSolving: (solving) => set({ isSolving: solving }),
 }));

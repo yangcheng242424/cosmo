@@ -14,12 +14,14 @@ export async function POST(request: NextRequest) {
 
     const systemPrompt = buildAgentSystemPrompt(agent, topic, 2);
 
-    // Try Anthropic first, then OpenAI
+    // Try Grok first, then Anthropic, then OpenAI
     const provider = process.env.AI_PROVIDER || "anthropic";
 
     let content: string;
 
-    if (provider === "anthropic" && process.env.ANTHROPIC_API_KEY) {
+    if (provider === "grok" && process.env.GROK_API_KEY) {
+      content = await callGrok(systemPrompt, message, history);
+    } else if (provider === "anthropic" && process.env.ANTHROPIC_API_KEY) {
       content = await callAnthropic(systemPrompt, message, history);
     } else if (process.env.OPENAI_API_KEY) {
       content = await callOpenAI(systemPrompt, message, history);
@@ -46,6 +48,38 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
+}
+
+async function callGrok(
+  systemPrompt: string,
+  message: string,
+  history: { role: string; content: string }[]
+): Promise<string> {
+  const messages = [
+    { role: "system", content: systemPrompt },
+    ...history,
+    { role: "user", content: message },
+  ];
+
+  const response = await fetch("https://api.x.ai/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.GROK_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model: process.env.AI_MODEL || "grok-3-mini",
+      messages,
+      max_tokens: 1024,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Grok API error: ${response.status}`);
+  }
+
+  const data = await response.json();
+  return data.choices[0].message.content;
 }
 
 async function callAnthropic(
