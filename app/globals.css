@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cosmic-900: #0a0a1a;
+  --color-cosmic-800: #12122e;
+  --color-cosmic-700: #1a1a42;
+  --color-cosmic-600: #242456;
+  --color-cosmic-500: #2e2e6a;
+  --color-cosmic-400: #4a4a8a;
+  --color-cosmic-300: #6a6aaa;
+  --color-cosmic-200: #9a9acc;
+  --color-cosmic-100: #cacaee;
+
+  --color-nebula-500: #8b5cf6;
+  --color-nebula-400: #a78bfa;
+  --color-nebula-300: #c4b5fd;
+
+  --color-star-500: #fbbf24;
+  --color-star-400: #fcd34d;
+  --color-star-300: #fde68a;
+
+  --color-aurora-500: #06b6d4;
+  --color-aurora-400: #22d3ee;
+  --color-aurora-300: #67e8f9;
+
+  --color-nova-500: #f43f5e;
+  --color-nova-400: #fb7185;
+  --color-nova-300: #fda4af;
+
+  --color-plasma-500: #10b981;
+  --color-plasma-400: #34d399;
+  --color-plasma-300: #6ee7b7;
+
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--color-cosmic-900);
+  color: white;
+  font-family: var(--font-sans);
+}
+
+/* Starfield animation */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(139, 92, 246, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.6); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes streak {
+  0% { transform: translateX(-100%) translateY(-100%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateX(200%) translateY(200%); opacity: 0; }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.5s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-cosmic-800);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-cosmic-500);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-nebula-500);
+}
+
+/* KaTeX overrides for dark theme */
+.katex {
+  color: white !important;
+  font-size: 1.1em !important;
+}
+
+.katex-display {
+  margin: 1em 0 !important;
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(18, 18, 46, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+.glass-hover:hover {
+  background: rgba(26, 26, 66, 0.8);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-nebula-400), var(--color-aurora-400));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
