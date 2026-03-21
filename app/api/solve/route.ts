@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: process.env.AI_MODEL || "grok-3-mini",
+        model: process.env.AI_MODEL || "grok-3",
         messages: [
           { role: "system", content: SOLVE_SYSTEM_PROMPT },
           ...messages,

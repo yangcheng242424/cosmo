@@ -68,7 +68,7 @@ async function callGrok(
       Authorization: `Bearer ${process.env.GROK_API_KEY}`,
     },
     body: JSON.stringify({
-      model: process.env.AI_MODEL || "grok-3-mini",
+      model: process.env.AI_MODEL || "grok-3",
       messages,
       max_tokens: 1024,
     }),
